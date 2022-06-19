@@ -38,17 +38,20 @@ class _AddNameState extends State<AddName> {
               padding: EdgeInsets.all(16.0,
               ),
               child: Image.asset(
-                "assets/icon.png",
-                height: 64.0,
-                width: 64.0,
+                "assets/money_1.png",
+                height: 60.0,
+                width: 60.0,
+
               ),
             ),
             SizedBox(
               height: 12.0,
             ),
-            Text("Let Me Know Your Name? ",
+            Text("Hãy nhập tên của bạn ",
+
               style: TextStyle(
                 fontSize: 24.0,
+                fontFamily: 'DM_Sans',
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -68,11 +71,13 @@ class _AddNameState extends State<AddName> {
               ),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: "Your Name",
+                  hintText: "Tên của bạn ",
+
                   border: InputBorder.none,
                 ),
                 style: TextStyle(
                   fontSize: 20.0,
+                  fontFamily: 'DM_Sans',
                 ),
                 maxLength: 15,
                 onChanged: (val) {
@@ -93,15 +98,17 @@ class _AddNameState extends State<AddName> {
                       SnackBar(
                         action: SnackBarAction(
                           label: "OK",
+                          textColor: Colors.white,
                           onPressed: () {
                             ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           },
                         ),
-                        backgroundColor: Colors.white,
+                        backgroundColor: Colors.red[700],
                         content: Text(
-                          "Let Me Know Your Name!",
+                          "Hãy nhập tên của bạn!",
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
+                            fontFamily: 'DM_Sans',
                             fontSize: 18.0,
                           ),
                         ),
@@ -112,7 +119,7 @@ class _AddNameState extends State<AddName> {
                     await dbHelper.addName(name);
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => Homepage(),
+                        builder: (context) => BottomSelected(),
                       ),
                     );
                   }
@@ -130,9 +137,10 @@ class _AddNameState extends State<AddName> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Let's Go",
+                      "Được rồi, đi thôi!",
                       style: TextStyle(
                         fontSize: 20.0,
+                        fontFamily: 'DM_Sans',
                       ),
                     ),
                     SizedBox(

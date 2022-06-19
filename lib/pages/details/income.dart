@@ -1,8 +1,13 @@
 import 'dart:core';
 import 'dart:math' as math;
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
 import 'package:pie_chart/pie_chart.dart';
+
+import '../../controllers/tien_te.dart';
 
 class IncomeChart extends StatefulWidget {
   final Map<String, double> dataIncome;
@@ -16,7 +21,11 @@ class IncomeChart extends StatefulWidget {
 class _IncomeChartState extends State<IncomeChart> {
   List<double> price = [];
   List<String> title = [];
-
+  final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
+    locale: 'en_US',
+    decimalDigits: 0,
+    symbol: '',
+  );
   @override
   void initState() {
     super.initState();
@@ -27,7 +36,7 @@ class _IncomeChartState extends State<IncomeChart> {
   }
 
   Box box;
-
+  final TienTe tienTe = Get.find();
   final ChartType _chartType = ChartType.disc;
   final double _ringStrokeWidth = 32;
 
@@ -57,7 +66,7 @@ class _IncomeChartState extends State<IncomeChart> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text(
-          "Income",
+          "Thu",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -114,7 +123,7 @@ class _IncomeChartState extends State<IncomeChart> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Text(
-            "+" + price.toString(),
+            "+" + formatter.format((price* tienTe.tyGia).toString()),
             style: TextStyle(fontSize: 15, color: Colors.green),
           ),
         ],

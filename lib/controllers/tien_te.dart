@@ -25,8 +25,11 @@ class TienTe extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    tienTe.add(TienTeModel(idQuocGia: 1, tenTien: 'Đô la Mỹ', tyGia: 1));
+    tienTe.add(TienTeModel(idQuocGia: 1, tenTien: 'USD', tyGia: 1));
     tienTe.add(TienTeModel(idQuocGia: 2, tenTien: 'VNĐ', tyGia: 23190));
-    tienTe.add(TienTeModel(idQuocGia: 3, tenTien: 'Bảng anh', tyGia: 1.25));
+    tienTe.add(TienTeModel(idQuocGia: 3, tenTien: 'Bảng Anh', tyGia: 1.25));
+    tienTe.add(TienTeModel(idQuocGia: 4, tenTien: 'WON', tyGia: 1287));
+    tienTe.add(TienTeModel(idQuocGia: 5, tenTien: 'YEN', tyGia: 135));
+    tienTe.add(TienTeModel(idQuocGia: 6, tenTien: 'EURO', tyGia: 0.96));
   }
 }

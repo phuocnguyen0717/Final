@@ -1,8 +1,16 @@
 import 'dart:core';
+
+
 import 'dart:math' as math;
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
 import 'package:pie_chart/pie_chart.dart';
+
+import '../../controllers/tien_te.dart';
+import '../../custom/chuyen_doi_tien_te.dart';
 
 class ExpansedChart extends StatefulWidget {
   final Map<String, double> data;
@@ -16,7 +24,11 @@ class ExpansedChart extends StatefulWidget {
 class _ExpansedChartState extends State<ExpansedChart> {
   List<double> price = [];
   List<String> title = [];
-
+  final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
+    locale: 'en_US',
+    decimalDigits: 0,
+    symbol: '',
+  );
   @override
   void initState() {
     super.initState();
@@ -27,7 +39,7 @@ class _ExpansedChartState extends State<ExpansedChart> {
   }
 
   Box box;
-
+  final TienTe tienTe = Get.find();
   final ChartType _chartType = ChartType.disc;
   final double _ringStrokeWidth = 32;
 
@@ -42,7 +54,7 @@ class _ExpansedChartState extends State<ExpansedChart> {
       chartRadius: math.min(MediaQuery.of(context).size.width / 1.2, 300),
       initialAngleInDegree: 0,
       chartType: _chartType,
-      centerText: "Expansed",
+      centerText: "Chi",
       chartValuesOptions: ChartValuesOptions(
           showChartValues: true, showChartValuesInPercentage: true),
       ringStrokeWidth: _ringStrokeWidth,
@@ -57,7 +69,7 @@ class _ExpansedChartState extends State<ExpansedChart> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text(
-          "Expanded",
+          "Chi",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -114,7 +126,7 @@ class _ExpansedChartState extends State<ExpansedChart> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Text(
-            "-" + price.toString(),
+            "-" + formatter.format((price* tienTe.tyGia).toString()),
             style: TextStyle(fontSize: 15, color: Colors.red),
           ),
         ],

@@ -18,11 +18,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  //
-
   DbHelper dbHelper = DbHelper();
-
-  //
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +26,11 @@ class _SettingsState extends State<Settings> {
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: Text(
-          "Settings",
-          style: TextStyle(color: Colors.white),
+          "Cài Đặt",
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'DM_Sans',
+          ),
         ),
       ),
       body: ListView(
@@ -39,227 +38,430 @@ class _SettingsState extends State<Settings> {
           12.0,
         ),
         children: [
-          ListTile(
-            onTap: () async {
-              bool answer = await showConfirmDialog(context, "Warning",
-                  "This is irreversible. Your entire data will be Lost");
-              if (answer) {
-                await dbHelper.cleanData();
-                IndexNavigationBar indexNavigationBar =
-                    Get.put(IndexNavigationBar());
-                indexNavigationBar.updateIndex(0);
-              }
-            },
-            tileColor: Colors.white,
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 12.0,
-              horizontal: 20.0,
+          Center(
+              child: Text(
+            "Chuỗi chức năng",
+            style: TextStyle(
+              fontFamily: 'DM_Sans',
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                8.0,
-              ),
-            ),
-            title: Text(
-              "Clean Data",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            trailing: Icon(
-              Icons.delete_forever_outlined,
-              size: 32.0,
-              color: Colors.black87,
-            ),
+          )),
+          SizedBox(
+            height: 10,
           ),
-          //
+          _deleteData(),
           SizedBox(
             height: 20.0,
           ),
-          //
-          ListTile(
-            onTap: () async {
-              String nameEditing = "";
-              String name = await showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  backgroundColor: Colors.grey[300],
-                  title: Text(
-                    "Enter new name",
-                  ),
-                  content: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(
-                        12.0,
-                      ),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      vertical: 8.0,
-                      horizontal: 16.0,
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Your Name",
-                        border: InputBorder.none,
-                      ),
-                      style: TextStyle(
-                        fontSize: 20.0,
-                      ),
-                      maxLength: 12,
-                      onChanged: (val) {
-                        nameEditing = val;
-                      },
-                    ),
-                  ),
-                  actions: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(nameEditing);
-                      },
-                      child: Text(
-                        "OK",
-                      ),
-                    ),
-                  ],
-                ),
-              );
-              //
-              if (name != null && name.isNotEmpty) {
-                DbHelper dbHelper = DbHelper();
-                await dbHelper.addName(name);
-              }
-            },
-            tileColor: Colors.white,
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 12.0,
-              horizontal: 20.0,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                8.0,
-              ),
-            ),
-            title: Text(
-              "Change Name",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            trailing: Icon(
-              Icons.change_circle_outlined,
-              size: 32.0,
-              color: Colors.black87,
-            ),
-          ),
-          //
+          _changeName(),
           SizedBox(
             height: 20.0,
           ),
-          ListTile(
-            onTap: () {
-              Get.to(() => ChuyenDoiTienTe());
-            },
-            tileColor: Colors.white,
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 12.0,
-              horizontal: 20.0,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                8.0,
-              ),
-            ),
-            title: Text(
-              "Change Currency",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            trailing: Icon(
-              Icons.swap_horizontal_circle_outlined,
-              size: 32.0,
-              color: Colors.black87,
-            ),
-          ),
-          //
+          _convertMoney(),
           SizedBox(
             height: 20.0,
           ),
-          ListTile(
-            onTap: () {
-              Get.to(() => WebScreen(
-                    url:
-                        'https://play.google.com/store/apps/details?id=steptracker.healthandfitness.walkingtracker.pedometer&hl=vi',
-                  )
-              );
-            },
-            tileColor: Colors.white,
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 12.0,
-              horizontal: 20.0,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                8.0,
-              ),
-            ),
-            title: Text(
-              "Change Password ",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            trailing: Icon(
-              Icons.admin_panel_settings_outlined,
-              size: 32.0,
-              color: Colors.black87,
-            ),
+          Center(
+              child: Text(
+            "Chuỗi ứng dụng hổ trợ",
+            style: TextStyle(fontFamily: 'DM_Sans'),
+          )),
+          SizedBox(
+            height: 20.0,
           ),
-          //
-          // FutureBuilder<bool>(
-          //   future: dbHelper.getLocalAuth(),
-          //   builder: (context, snapshot) {
-          //     // print(snapshot.data);
-          //     if (snapshot.hasData) {
-          //       return SwitchListTile(
-          //         onChanged: (val) {
-          //           DbHelper dbHelper = DbHelper();
-          //           dbHelper.setLocalAuth(val);
-          //           setState(() {});
-          //         },
-          //         value: snapshot.data == null ? false : snapshot.data!,
-          //         tileColor: Colors.white,
-          //         contentPadding: EdgeInsets.symmetric(
-          //           vertical: 12.0,
-          //           horizontal: 20.0,
-          //         ),
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(
-          //             8.0,
-          //           ),
-          //         ),
-          //         title: Text(
-          //           "Local Bio Auth",
-          //           style: TextStyle(
-          //             fontSize: 20.0,
-          //             fontWeight: FontWeight.w800,
-          //           ),
-          //         ),
-          //         subtitle: Text(
-          //           "Secure This app, Use Fingerprint to unlock the app.",
-          //         ),
-          //       );
-          //     } else {
-          //       return Container();
-          //     }
-          //   },
-          // ),
+          _appChayBo(),
+          SizedBox(
+            height: 20,
+          ),
+          _appHocNgoaiNgu(),
+          SizedBox(
+            height: 20,
+          ),
+          _appQuyDoiTien(),
+          SizedBox(
+            height: 20,
+          ),
+          _appMomo(),
+          SizedBox(
+            height: 20,
+          ),
+          _appFinhay(),
+          SizedBox(
+            height: 90,
+          )
         ],
+      ),
+    );
+  }
+
+  Widget _deleteData() {
+    return ListTile(
+      onTap: () async {
+        bool answer = await showConfirmDialog(context, "THÔNG BÁO",
+            "Tất cả dữ liệu của bạn sẽ bị xóa!");
+        if (answer) {
+          await dbHelper.cleanData();
+          IndexNavigationBar indexNavigationBar = Get.put(IndexNavigationBar());
+          indexNavigationBar.updateIndex(0);
+        }
+      },
+      tileColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 20.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          8.0,
+        ),
+      ),
+      title: Text(
+        "Xóa dữ liệu",
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'DM_Sans',
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      trailing: Icon(
+        Icons.delete_forever_outlined,
+        size: 32.0,
+        color: Colors.black87,
+      ),
+    );
+  }
+
+  Widget _changeName() {
+    return ListTile(
+      onTap: () async {
+        String nameEditing = "";
+        String name = await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            backgroundColor: Colors.grey[300],
+            title: Text(
+              "Nhập tên mới",
+              style: TextStyle(
+                fontFamily: 'DM_Sans',
+              ),
+            ),
+            content: Container(
+              decoration: BoxDecoration(
+                color: Colors.white70,
+                borderRadius: BorderRadius.circular(
+                  12.0,
+                ),
+              ),
+              padding: EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 16.0,
+              ),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Tên mới",
+                  border: InputBorder.none,
+                ),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: 'DM_Sans',
+                ),
+                maxLength: 12,
+                onChanged: (val) {
+                  nameEditing = val;
+                },
+              ),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(nameEditing);
+                },
+                child: Text(
+                  "OK",
+                ),
+              ),
+            ],
+          ),
+        );
+        //
+        if (name != null && name.isNotEmpty) {
+          DbHelper dbHelper = DbHelper();
+          await dbHelper.addName(name);
+        }
+      },
+      tileColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 20.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          8.0,
+        ),
+      ),
+      title: Text(
+        "Thay đổi tên người dùng",
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'DM_Sans',
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      trailing: Icon(
+        Icons.change_circle_outlined,
+        size: 32.0,
+        color: Colors.black87,
+      ),
+    );
+  }
+
+  Widget _convertMoney() {
+    return ListTile(
+      onTap: () {
+        Get.to(() => ChuyenDoiTienTe());
+      },
+      tileColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 20.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          8.0,
+        ),
+      ),
+      title: Text(
+        "Thay đổi tiền tệ",
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'DM_Sans',
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      trailing: Icon(
+        Icons.arrow_forward_ios,
+        size: 32.0,
+        color: Colors.black87,
+      ),
+    );
+  }
+
+  Widget _appChayBo() {
+    return ListTile(
+      onTap: () {
+        Get.to(() => WebScreen(
+              url:
+                  'https://play.google.com/store/apps/details?id=steptracker.healthandfitness.walkingtracker.pedometer&hl=vi',
+            ));
+      },
+      tileColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 20.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          8.0,
+        ),
+      ),
+      title: Text(
+        "Chạy bộ ",
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'DM_Sans',
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      trailing: Container(
+        decoration: BoxDecoration(
+          color: Colors.white70,
+          borderRadius: BorderRadius.circular(
+            12.0,
+          ),
+        ),
+        padding: EdgeInsets.all(
+          16.0,
+        ),
+        child: Image.asset(
+          "assets/diBo.png",
+          height: 50.0,
+          width: 50.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _appHocNgoaiNgu() {
+    return ListTile(
+      onTap: () {
+        Get.to(() => WebScreen(
+              url:
+                  'https://play.google.com/store/search?q=doulingo&c=apps&hl=vi',
+            ));
+      },
+      tileColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 20.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          8.0,
+        ),
+      ),
+      title: Text(
+        "Học ngoại ngữ ",
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'DM_Sans',
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      trailing: Container(
+        decoration: BoxDecoration(
+          color: Colors.white70,
+          borderRadius: BorderRadius.circular(
+            12.0,
+          ),
+        ),
+        padding: EdgeInsets.all(
+          16.0,
+        ),
+        child: Image.asset(
+          "assets/dou1.jpg",
+          height: 50.0,
+          width: 50.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _appQuyDoiTien() {
+    return ListTile(
+      onTap: () {
+        Get.to(() => WebScreen(
+              url:
+                  'https://play.google.com/store/apps/details?id=com.digitalchemy.currencyconverter&hl=vi&gl=US',
+            ));
+      },
+      tileColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 20.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          8.0,
+        ),
+      ),
+      title: Text(
+        "Quy đổi tiền ",
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'DM_Sans',
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      trailing: Container(
+        decoration: BoxDecoration(
+          color: Colors.white70,
+          borderRadius: BorderRadius.circular(
+            12.0,
+          ),
+        ),
+        padding: EdgeInsets.all(
+          16.0,
+        ),
+        child: Image.asset(
+          "assets/thayDoiTien.png",
+          height: 50.0,
+          width: 50.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _appMomo() {
+    return ListTile(
+      onTap: () {
+        Get.to(() => WebScreen(
+              url:
+                  'https://play.google.com/store/search?q=momo&c=apps&hl=vi&gl=US',
+            ));
+      },
+      tileColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 20.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          8.0,
+        ),
+      ),
+      title: Text(
+        "Ví điện tử ",
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'DM_Sans',
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      trailing: Container(
+        decoration: BoxDecoration(
+          color: Colors.white70,
+          borderRadius: BorderRadius.circular(
+            12.0,
+          ),
+        ),
+        padding: EdgeInsets.all(
+          16.0,
+        ),
+        child: Image.asset(
+          "assets/momo.jpg",
+          height: 50.0,
+          width: 50.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _appFinhay() {
+    return ListTile(
+      onTap: () {
+        Get.to(() => WebScreen(
+              url: 'https://play.google.com/store/search?q=finhay&c=apps&hl=vi',
+            ));
+      },
+      tileColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 20.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          8.0,
+        ),
+      ),
+      title: Text(
+        "Đầu tư và tích lũy ",
+        style: TextStyle(
+            fontSize: 20.0, fontWeight: FontWeight.w800, fontFamily: 'DM_Sans'),
+      ),
+      trailing: Container(
+        decoration: BoxDecoration(
+          color: Colors.white70,
+          borderRadius: BorderRadius.circular(
+            12.0,
+          ),
+        ),
+        padding: EdgeInsets.all(
+          16.0,
+        ),
+        child: Image.asset(
+          "assets/finhay.jpg",
+          height: 50.0,
+          width: 50.0,
+        ),
       ),
     );
   }

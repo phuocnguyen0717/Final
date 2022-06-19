@@ -17,7 +17,8 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
     try {
       var localAuth = LocalAuthentication();
       authenticated = await localAuth.authenticate(
-        localizedReason: 'Please authenticate to move forward',
+        localizedReason: 'Vui lòng xác thực',
+        biometricOnly: false
       );
       if (authenticated) {
         Navigator.of(context).pushReplacement(
@@ -33,10 +34,14 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text(
-            "ERROR",
+            "LỖI!!",
           ),
           content: Text(
-            "You need to setup either PIN or Fingerprint Authentication to be able to use this App !\nI am doing this for your safety 🙂",
+            "Bạn cần thiết lập mã Pin hoặc vân tay để bảo mật ứng dụng",
+            style: TextStyle(
+              fontFamily: 'DM_Sans',
+              fontSize: 26
+            ),
           ),
           actions: [
             TextButton(
@@ -63,7 +68,10 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Local Auth"),
+        title: Text("Bảo Mật",
+        style: TextStyle(
+          fontFamily: 'DM_Sans',
+        ),),
       ),
       body: Center(
         child: Column(
@@ -76,7 +84,7 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
                 color: Colors.white54,
               ),
               child: Icon(
-                Icons.lock_outline_rounded,
+                Icons.fingerprint_outlined,
                 color: Theme.of(context).primaryColor,
                 size: 150.0,
               ),
@@ -92,10 +100,11 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Oh Snap ! You Need to authenticate to move forward.",
+                    "Bạn vui lòng xác thực để sử dụng ứng dụng",
                     style: TextStyle(
                       fontSize: 28.0,
                       fontWeight: FontWeight.w800,
+                      fontFamily: 'DM_Sans',
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -112,9 +121,10 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "Try Again",
+                          "Thử lại",
                           style: TextStyle(
                             fontSize: 20.0,
+                            fontFamily: 'DM_Sans',
                           ),
                         ),
                         //

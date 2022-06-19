@@ -21,8 +21,7 @@ class ChuyenDoiTienTe extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: ListView.separated(
-                  itemBuilder: (_, index) => _item(
-                      controller.tienTe[index],
+                  itemBuilder: (_, index) => _item(controller.tienTe[index],
                       (controller.idQuocGiaTienTe - 1) == index),
                   separatorBuilder: (_, __) => Divider(),
                   itemCount: controller.tienTe.length),
@@ -33,9 +32,8 @@ class ChuyenDoiTienTe extends StatelessWidget {
 
   Widget _item(TienTeModel tienTeModel, bool check) {
     return GestureDetector(
-      onTap: (){
-        TienTe tienTe = Get.find();
-        tienTe.updateID(tienTeModel.idQuocGia);
+      onTap: () {
+        _showConvertMoney(tienTeModel);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -45,13 +43,38 @@ class ChuyenDoiTienTe extends StatelessWidget {
             Text(
               tienTeModel.tenTien,
               style: TextStyle(
+                  fontSize: 20,
                   color: check ? Colors.deepOrange : null,
                   fontWeight: check ? FontWeight.bold : null),
             ),
-            // Text(nameCountry)
           ],
         ),
       ),
     );
+  }
+
+  void _showConvertMoney(TienTeModel tienTeModel) {
+    TienTe tienTe = Get.find();
+    Get.dialog(AlertDialog(
+      title: Text("THÔNG BÁO",
+      style: TextStyle(
+        fontSize: 20,
+        fontFamily: 'DM_Sans',
+      ),
+      ),
+      content: Text("Bạn đã đổi tiền sang đơn vị " + tienTeModel.tenTien,
+      style: TextStyle(
+        fontSize: 20,
+        fontFamily: 'DM_Sans'
+      ),),
+      actions: <Widget>[
+        TextButton(
+            onPressed: () {
+              tienTe.updateID(tienTeModel.idQuocGia);
+              Get.back();
+            },
+            child: Text("OK"))
+      ],
+    ));
   }
 }

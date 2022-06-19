@@ -20,16 +20,10 @@ class _AddTransactionState extends State<AddTransaction> {
     decimalDigits: 0,
     symbol: '',
   );
-
-  // final formatter = NumberFormat.currency(
-  //     locale: 'eu',
-  //     customPattern: '#,### \u00a4',
-  //     symbol: 'FCFA',
-  //     decimalDigits: 2);
   int amount;
 
   String note = "Some Expense";
-  String type = "Imcome";
+  String type = "Thu";
   DateTime selectedDate = DateTime.now();
   String dropdownValue = 'Supermarket';
   List<String> months = [
@@ -79,9 +73,11 @@ class _AddTransactionState extends State<AddTransaction> {
               height: 20.0,
             ),
             Text(
-              "Add Transaction",
+              "Thêm Giao Dịch",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 32.0,
+                  fontFamily: 'DM_Sans',
+                  fontWeight: FontWeight.w700),
             ),
             SizedBox(
               height: 20.0,
@@ -115,6 +111,7 @@ class _AddTransactionState extends State<AddTransaction> {
                     ),
                     style: TextStyle(
                       fontSize: 24.0,
+                      fontFamily: 'DM_Sans',
                     ),
                     onChanged: (val) {
                       try {
@@ -126,7 +123,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                   offset: formatter.format(amount.toString()).length));
                         });
 
-                        print(formatter.format(amount.toString()));
+
                       } catch (e) {
                         // print(e.toString());
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -145,9 +142,10 @@ class _AddTransactionState extends State<AddTransaction> {
                                   width: 6.0,
                                 ),
                                 Text(
-                                  "Enter only Numbers as Amount",
+                                  "Vui lòng chỉ nhập số",
                                   style: TextStyle(
                                     fontSize: 16.0,
+                                    fontFamily: 'DM_Sans',
                                   ),
                                 ),
                               ],
@@ -189,7 +187,9 @@ class _AddTransactionState extends State<AddTransaction> {
                     child: DropdownButton<String>(
                   value: dropdownValue,
                   elevation: 16,
-                  style: const TextStyle(color: Color(0xff004eeb)),
+                  style: const TextStyle(
+                      fontFamily: 'DM_Sans',
+                      color: Color(0xff004eeb)),
                   underline: Container(
                     height: 2,
                     color: Color(0xff004eeb),
@@ -246,51 +246,53 @@ class _AddTransactionState extends State<AddTransaction> {
                 ),
                 ChoiceChip(
                   label: Text(
-                    "Income",
+                    "Thu",
                     style: TextStyle(
                       fontSize: 18.0,
-                      color: type == "Income" ? Colors.white : Colors.black,
+                      fontFamily: 'DM_Sans',
+                      color: type == "Thu" ? Colors.white : Colors.black,
                     ),
                   ),
                   selectedColor: Static.PrimaryColor,
                   onSelected: (val) {
                     if (val) {
                       setState(() {
-                        type = "Income";
+                        type = "Thu";
                         if (dropdownValue.isEmpty ||
-                            dropdownValue == "Expense") {
-                          dropdownValue = 'Income';
+                            dropdownValue == "Chi") {
+                          dropdownValue = 'Thu';
                         }
                       });
                     }
                   },
-                  selected: type == "Income" ? true : false,
+                  selected: type == "Thu" ? true : false,
                 ),
                 SizedBox(
                   width: 12.0,
                 ),
                 ChoiceChip(
                   label: Text(
-                    "Expense",
+                    "Chi",
                     style: TextStyle(
                       fontSize: 18.0,
-                      color: type == "Expense" ? Colors.white : Colors.black,
+                      fontFamily: 'DM_Sans',
+                      color: type == "Chi" ? Colors.white : Colors.black,
                     ),
                   ),
                   selectedColor: Static.PrimaryColor,
                   onSelected: (val) {
                     if (val) {
                       setState(() {
-                        type = "Expense";
+                        type = "Chi";
 
                         if (dropdownValue.isEmpty ||
-                            dropdownValue == "Income") {
-                          dropdownValue = 'Expense';
+                            dropdownValue == "Thu") {
+                          dropdownValue = 'Chi';
                         }
                       });
                     }
                   },
-                  selected: type == "Expense" ? true : false,
+                  selected: type == "Chi" ? true : false,
                 ),
               ],
             ),
@@ -333,6 +335,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         "${selectedDate.day}${months[selectedDate.month - 1]}",
                         style: TextStyle(
                           fontSize: 20.0,
+                          fontFamily: 'DM_Sans',
                           color: Colors.grey[700],
                         ),
                       ),
@@ -361,9 +364,10 @@ class _AddTransactionState extends State<AddTransaction> {
                       SnackBar(
                         backgroundColor: Colors.red[700],
                         content: Text(
-                          "Please enter a valid Amount !",
+                          "Vui lòng nhập số tiền !",
                           style: TextStyle(
                             fontSize: 16.0,
+                            fontFamily: 'DM_Sans',
                             color: Colors.white,
                           ),
                         ),
@@ -372,9 +376,10 @@ class _AddTransactionState extends State<AddTransaction> {
                   }
                 },
                 child: Text(
-                  "Add",
+                  "Thêm",
                   style: TextStyle(
                     fontSize: 20.0,
+                    fontFamily: 'DM_Sans',
                     fontWeight: FontWeight.w600,
                   ),
                 ),

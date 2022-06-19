@@ -1,4 +1,6 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:endgame/controllers/tien_te.dart';
+import 'package:endgame/custom/chuyen_doi_tien_te.dart';
 import 'package:endgame/modals/transaction_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -22,7 +24,11 @@ class _ReportScreenState extends State<ReportScreen> {
   }
 
   final TienTe tienTe = Get.find();
-
+  final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
+    locale: 'en_US',
+    decimalDigits: 0,
+    symbol: '',
+  );
   Future<List<TransactionModel>> fetch() async {
     if (box.values.isEmpty) {
       return Future.value([]);
@@ -51,7 +57,7 @@ class _ReportScreenState extends State<ReportScreen> {
         appBar: AppBar(
           backgroundColor: Color(0xff004eeb),
           title: Text(
-            "Statistics of the  three months recently",
+            "Thống kê",
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -61,7 +67,7 @@ class _ReportScreenState extends State<ReportScreen> {
               if (snapshot.hasError) {
                 return Center(
                   child: Text(
-                    "Error  !",
+                    "Lỗi !",
                     style: TextStyle(
                       fontSize: 24.0,
                     ),
@@ -72,9 +78,10 @@ class _ReportScreenState extends State<ReportScreen> {
                 if (snapshot.data.isEmpty) {
                   return Center(
                     child: Text(
-                      "You Don't Have Data!",
+                      "Bạn chưa có dữ liệu!",
                       style: TextStyle(
                         fontSize: 24.0,
+                        fontFamily: 'DM_Sans',
                       ),
                     ),
                   );
@@ -129,7 +136,7 @@ class _ReportScreenState extends State<ReportScreen> {
                         colorFn: (ReportModel series, _) => series.barColor,
                         data: data,
                         labelAccessorFn: (ReportModel subscribers, _) =>
-                            '\$${subscribers.subscribers.toString()}'),
+                            formatter.format(subscribers.subscribers.toString())),
                     charts.Series(
                         id: "Subscribers",
                         domainFn: (ReportModel series2, _) => series2.month,
@@ -138,7 +145,7 @@ class _ReportScreenState extends State<ReportScreen> {
                         colorFn: (ReportModel series2, _) => series2.barColor,
                         data: data2,
                         labelAccessorFn: (ReportModel subscribers, _) =>
-                            '\$${subscribers.subscribers.toString()}')
+                            formatter.format(subscribers.subscribers.toString()))
                   ];
                   return Container(
                     height: 400,
@@ -149,16 +156,18 @@ class _ReportScreenState extends State<ReportScreen> {
                         child: Column(
                           children: <Widget>[
                             const Text(
-                              "Expansed",
+                              "Ba Tháng gần đây",
                             ),
                             Expanded(
                               child: charts.BarChart(
+
                                 series,
                                 animate: true,
                                 animationDuration: Duration(seconds: 2),
                                 barRendererDecorator:
                                     charts.BarLabelDecorator<String>(),
                                 domainAxis: charts.OrdinalAxisSpec(),
+                                
                               ),
                             )
                           ],
@@ -182,7 +191,7 @@ class _ReportScreenState extends State<ReportScreen> {
     double totalIncome1 = 0;
     for (TransactionModel data in entireData) {
       if (data.date.month == DateTime.now().month) {
-        if (data.type == "Income") {
+        if (data.type == "Thu") {
           totalIncome1 += data.amount;
         } else {
           totalExpense1 += data.amount;
@@ -198,7 +207,7 @@ class _ReportScreenState extends State<ReportScreen> {
     double totalIncome2 = 0;
     for (TransactionModel data in entireData) {
       if (data.date.month == DateTime.now().month - 1) {
-        if (data.type == "Income") {
+        if (data.type == "Thu") {
           totalIncome2 += data.amount;
         } else {
           totalExpense2 += data.amount;
@@ -214,7 +223,7 @@ class _ReportScreenState extends State<ReportScreen> {
     double totalIncome3 = 0;
     for (TransactionModel data in entireData) {
       if (data.date.month == DateTime.now().month - 2) {
-        if (data.type == "Income") {
+        if (data.type == "Thu") {
           totalIncome3 += data.amount;
         } else {
           totalExpense3 += data.amount;

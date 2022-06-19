@@ -3,11 +3,11 @@ import 'package:endgame/pages/add_transaction.dart';
 import 'package:endgame/pages/auth.dart';
 import 'package:endgame/pages/bottom_selected.dart';
 import 'package:endgame/pages/homepage.dart';
-import 'package:endgame/pages/money_converter.dart';
+
 import 'package:endgame/pages/report.dart';
-import 'package:endgame/pages/security.dart';
+
 import 'package:endgame/pages/settings.dart';
-import 'package:endgame/pages/splash.dart';
+
 import 'package:endgame/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Money Manager',
+      title: 'Retails Manager',
       theme: myTheme,
       home:  BottomSelected(),
     );

@@ -41,7 +41,7 @@ class _BottomSelectedState extends State<BottomSelected>
     AddTransaction(),
     Settings()
   ];
-  final textList = <String>['HOME', 'REPORT', 'TRANSACTION', 'SETTING'];
+  final textList = <String>['Trang Chủ', 'Thống Kê', 'Thêm', 'Cài Đặt'];
 
   @override
   void initState() {
@@ -97,7 +97,9 @@ class _BottomSelectedState extends State<BottomSelected>
                     child: AutoSizeText(
                       textList[index],
                       maxLines: 1,
-                      style: TextStyle(color: color),
+                      style: TextStyle(color: color,
+                        fontFamily: 'DM_Sans',
+                      ),
                       group: autoSizeGroup,
                     ),
                   )
@@ -124,10 +126,7 @@ class _BottomSelectedState extends State<BottomSelected>
     );
   }
 
-// static void routing(int index){
-//   setState(()  {
-//     constain.bottomNavIndex = index;});
-// }
+
 }
 
 class NavigationScreen extends StatefulWidget {
