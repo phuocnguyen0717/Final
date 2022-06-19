@@ -36,7 +36,9 @@ class ChuyenDoiTienTe extends StatelessWidget {
         _showConvertMoney(tienTeModel);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0,
+          vertical: 10
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
