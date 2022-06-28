@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Retails Manager',
       theme: myTheme,
-      home:  BottomSelected(),
+      home:  FingerPrintAuth(),
     );
   }
 }
