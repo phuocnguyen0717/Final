@@ -45,6 +45,7 @@ flutter:
     - assets/dou1.jpg
     - assets/momo.jpg
     - assets/finhay.jpg
+    - assets/xoTay.png
 
   fonts:
     - family: customFont

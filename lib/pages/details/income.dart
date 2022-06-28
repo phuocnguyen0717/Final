@@ -66,7 +66,7 @@ class _IncomeChartState extends State<IncomeChart> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text(
-          "Thu",
+          "Thông kê thu",
           style: TextStyle(color: Colors.white),
         ),
       ),

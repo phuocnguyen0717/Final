@@ -69,7 +69,7 @@ class _ExpansedChartState extends State<ExpansedChart> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text(
-          "Chi",
+          "Thống kê chi",
           style: TextStyle(color: Colors.white),
         ),
       ),

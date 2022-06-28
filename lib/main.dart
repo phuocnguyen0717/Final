@@ -24,8 +24,10 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final IndexNavigationBar indexNavigationBar = Get.put(IndexNavigationBar());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Retails Manager',

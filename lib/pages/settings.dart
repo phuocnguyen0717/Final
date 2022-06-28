@@ -62,7 +62,7 @@ class _SettingsState extends State<Settings> {
           ),
           Center(
               child: Text(
-            "Chuỗi ứng dụng hổ trợ",
+            "Chuỗi ứng dụng hỗ trợ",
             style: TextStyle(fontFamily: 'DM_Sans'),
           )),
           SizedBox(
@@ -100,8 +100,11 @@ class _SettingsState extends State<Settings> {
             "Tất cả dữ liệu của bạn sẽ bị xóa!");
         if (answer) {
           await dbHelper.cleanData();
-          IndexNavigationBar indexNavigationBar = Get.put(IndexNavigationBar());
-          indexNavigationBar.updateIndex(0);
+          setState(() {
+            IndexNavigationBar indexNavigationBar = Get.put(IndexNavigationBar());
+            indexNavigationBar.updateIndex(0);
+          });
+
         }
       },
       tileColor: Colors.white,
@@ -295,7 +298,7 @@ class _SettingsState extends State<Settings> {
       onTap: () {
         Get.to(() => WebScreen(
               url:
-                  'https://play.google.com/store/search?q=doulingo&c=apps&hl=vi',
+                  'https://play.google.com/store/apps/details?id=org.whiteglow.keepmynotes&hl=vi&gl=US',
             ));
       },
       tileColor: Colors.white,
@@ -309,7 +312,7 @@ class _SettingsState extends State<Settings> {
         ),
       ),
       title: Text(
-        "Học ngoại ngữ ",
+        "Ghi chú - Sổ tay ",
         style: TextStyle(
           fontSize: 20.0,
           fontFamily: 'DM_Sans',
@@ -327,7 +330,7 @@ class _SettingsState extends State<Settings> {
           16.0,
         ),
         child: Image.asset(
-          "assets/dou1.jpg",
+          "assets/xoTay.png",
           height: 50.0,
           width: 50.0,
         ),

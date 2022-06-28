@@ -18,8 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../card/cardExpense.dart';
 import '../card/cardIncome.dart';
-import '../title/expenseTile.dart';
-import '../title/incomeTile.dart';
+import 'bottom_selected.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key key}) : super(key: key);
@@ -38,9 +37,9 @@ class _HomepageState extends State<Homepage> {
     "Jan",
     "Feb",
     "Mar",
-    "Apr",
-    "May",
-    "Jun",
+    "Tháng 4",
+    "Tháng 5",
+    "Tháng 6",
     "Jul",
     "Aug",
     "Sep",
@@ -615,23 +614,234 @@ class _HomepageState extends State<Homepage> {
         if (dataAtIndex.date.month == today.month) {
           if (dataAtIndex.type == "Thu") {
             return IncomeTile(
-              index: index,
-              date: dataAtIndex.date,
-              dropdownValue: dataAtIndex.dropdownValue,
-              value: dataAtIndex.amount,
+              index,
+              dataAtIndex.date,
+              dataAtIndex.dropdownValue,
+              dataAtIndex.amount,
             );
           } else {
             return ExpenseTile(
-              index: index,
-              date: dataAtIndex.date,
-              dropdownValue: dataAtIndex.dropdownValue,
-              value: dataAtIndex.amount,
+              index,
+              dataAtIndex.date,
+              dataAtIndex.dropdownValue,
+              dataAtIndex.amount,
             );
           }
         } else {
           return Container();
         }
       },
+    );
+  }
+  Widget ExpenseTile(int index , DateTime date , String dropdownValue, int value){
+    return InkWell(
+      splashColor: Static.PrimaryMaterialColor[400],
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          deleteInfoSnackBar,
+        );
+      },
+      onLongPress: () async {
+        bool answer = await showConfirmDialog(
+          context,
+          "THÔNG BÁO",
+          "Dữ liệu của bạn sẽ bị mất ?",
+        );
+        if (answer != null && answer) {
+          await dbHelper.deleteData( index);
+          setState(() {
+            IndexNavigationBar indexNavigationBar = Get.find();
+            indexNavigationBar.updateIndex(1);
+            indexNavigationBar.updateIndex(0);
+          });
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(18.0),
+        margin: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Color(0xffced4eb),
+          borderRadius: BorderRadius.circular(
+            8.0,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_circle_down_outlined,
+                          size: 28.0,
+                          color: Colors.red[700],
+                        ),
+                        SizedBox(
+                          width: 4.0,
+                        ),
+                        Text(
+                          "Chi",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.red,
+                            fontFamily: 'DM_Sans',
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    //
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Text(
+                        "${date.day} ${months[date.month - 1]} ",
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontFamily: 'DM_Sans',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        CustomText.TextX(value.toString(),
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.red,
+                            operator: '-'),
+                      ],
+                    ),
+                    //
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Text(
+                        dropdownValue,
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontFamily: 'DM_Sans',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  Widget IncomeTile(int index , DateTime date , String dropdownValue, int value){
+    return InkWell(
+      splashColor: Static.PrimaryMaterialColor[400],
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          deleteInfoSnackBar,
+        );
+      },
+      onLongPress: () async {
+        bool answer = await showConfirmDialog(
+          context,
+          "THÔNG BÁO",
+          "Dữ liệu của bạn sẽ bị mất ?",
+        );
+
+        if (answer != null && answer) {
+          await dbHelper.deleteData(index);
+          setState(() {
+            IndexNavigationBar indexNavigationBar = Get.find();
+            indexNavigationBar.updateIndex(1);
+            indexNavigationBar.updateIndex(0);
+          });
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(18.0),
+        margin: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Color(0xffced4eb),
+          borderRadius: BorderRadius.circular(
+            8.0,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.arrow_circle_up_outlined,
+                      size: 28.0,
+                      color: Colors.green[700],
+                    ),
+                    SizedBox(
+                      width: 4.0,
+                    ),
+                    Text(
+                      "Thu",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: 'DM_Sans',
+                        color: Colors.green,
+                      ),
+                    ),
+                  ],
+                ),
+                //
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Text(
+                    "${date.day} ${months[date.month - 1]} ",
+                    style: TextStyle(
+                      color: Colors.grey[800],
+                      fontFamily: 'DM_Sans',
+                    ),
+                  ),
+                ),
+                //
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  children: [
+                    CustomText.TextX(value.toString(),
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.green,
+                        operator: '+'),
+                  ],
+                ),
+                //
+                //
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Text(
+                    dropdownValue,
+                    style: TextStyle(
+                      color: Colors.grey[800],
+                      fontFamily: 'DM_Sans',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -22,10 +22,10 @@ class _AddTransactionState extends State<AddTransaction> {
   );
   int amount;
 
-  String note = "Some Expense";
+  String note = "Cái gì đó";
   String type = "Thu";
   DateTime selectedDate = DateTime.now();
-  String dropdownValue = 'Supermarket';
+  String dropdownValue = 'Siêu thị/chợ';
   List<String> months = [
     "Jan",
     "Feb",
@@ -93,7 +93,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       12.0,
                     ),
                     child: Icon(
-                      Icons.attach_money,
+                      Icons.money,
                       size: 24.0,
                       color: Colors.white,
                     )),
@@ -200,20 +200,20 @@ class _AddTransactionState extends State<AddTransaction> {
                     });
                   },
                   items: <String>[
-                    'Fuel',
-                    'Supermarket',
-                    'Sports',
-                    'Travels',
-                    'Fun',
-                    'Pets',
-                    'Cosmetic',
-                    'Food',
-                    'Drink',
-                    'Salary',
-                    'Other',
-                    'Investment',
-                    'Transaction',
-                    'Rental'
+                    'Xăng',
+                    'Siêu thị/chợ',
+                    'Thể thao',
+                    'Du lịch',
+                    'Giải trí',
+                    'Thú Cưng',
+                    'Mỹ phẩm',
+                    'Thức ăn',
+                    'Đồ uống',
+                    'Lương',
+                    'Khác',
+                    'Đầu tư',
+                    'Mua bán',
+                    'Cho Thuê'
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
