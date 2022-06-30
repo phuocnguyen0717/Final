@@ -1,5 +1,4 @@
 import 'package:endgame/pages/models/tien_te_model.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TienTe extends GetxController {
@@ -8,8 +7,8 @@ class TienTe extends GetxController {
   List<TienTeModel> tienTe = [];
 
   void updateID(int id) {
-    this.idQuocGiaTienTe = id;
-    this.tyGia = quyDoiTyGia(idQuocGiaTienTe);
+    idQuocGiaTienTe = id;
+    tyGia = quyDoiTyGia(idQuocGiaTienTe);
     update();
   }
 

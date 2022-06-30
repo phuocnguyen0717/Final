@@ -2,13 +2,10 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:endgame/controllers/db_helper.dart';
 import 'package:endgame/custom/chuyen_doi_tien_te.dart';
 import 'package:endgame/modals/transaction_modal.dart';
-import 'package:endgame/pages/add_transaction.dart';
 import 'package:endgame/pages/details/expensed.dart';
 import 'package:endgame/pages/details/income.dart';
-import 'package:endgame/pages/settings.dart';
 import 'package:endgame/pages/widgets/confirm_dialog.dart';
 import 'package:endgame/pages/widgets/info_snackbar.dart';
-import 'package:endgame/theme.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:endgame/static.dart' as Static;
@@ -572,7 +569,7 @@ class _HomepageState extends State<Homepage> {
             belowBarData: BarAreaData(
               show: true,
               colors: [Colors.lightBlue.withOpacity(0.5)],
-              cutOffY: 10.0,
+              cutOffY: 0.0,
               applyCutOffY: true,
             ),
             showingIndicators: [200, 200, 90, 10],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:endgame/static.dart' as Static;
 
 SnackBar deleteInfoSnackBar = SnackBar(
   backgroundColor: Colors.red[700],

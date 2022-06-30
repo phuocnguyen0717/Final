@@ -1,7 +1,7 @@
-// to launch local auth
+
 import 'package:endgame/pages/bottom_selected.dart';
-import 'package:endgame/pages/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:local_auth/auth_strings.dart';
 import 'package:local_auth/local_auth.dart';
 
 class FingerPrintAuth extends StatefulWidget {
@@ -13,13 +13,18 @@ class FingerPrintAuth extends StatefulWidget {
 
 class _FingerPrintAuthState extends State<FingerPrintAuth> {
   bool authenticated = false;
+
   void authenticate() async {
     try {
       var localAuth = LocalAuthentication();
       authenticated = await localAuth.authenticate(
-        localizedReason: 'Vui lòng xác thực',
-        biometricOnly: false
-      );
+          androidAuthStrings: const AndroidAuthMessages(
+            cancelButton: 'Đóng',
+            signInTitle: 'Sinh trắc học',
+            biometricHint: '',
+          ),
+          localizedReason: 'Thử lại',
+          biometricOnly: false);
       if (authenticated) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -27,7 +32,7 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
           ),
         );
       } else {
-        setState((  ) {});
+        setState(() {});
       }
     } catch (e) {
       showDialog(
@@ -38,10 +43,7 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
           ),
           content: Text(
             "Bạn cần thiết lập mã Pin hoặc vân tay để bảo mật ứng dụng",
-            style: TextStyle(
-              fontFamily: 'DM_Sans',
-              fontSize: 26
-            ),
+            style: TextStyle(fontFamily: 'DM_Sans', fontSize: 26),
           ),
           actions: [
             TextButton(
@@ -68,10 +70,12 @@ class _FingerPrintAuthState extends State<FingerPrintAuth> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bảo Mật",
-        style: TextStyle(
-          fontFamily: 'DM_Sans',
-        ),),
+        title: Text(
+          "Bảo Mật",
+          style: TextStyle(
+            fontFamily: 'DM_Sans',
+          ),
+        ),
       ),
       body: Center(
         child: Column(

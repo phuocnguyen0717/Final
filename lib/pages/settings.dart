@@ -1,13 +1,9 @@
 import 'package:endgame/pages/chuyen_doi_tien_te.dart';
-import 'package:endgame/pages/local/getLocal.dart';
-import 'package:endgame/pages/local/setLocal.dart';
 import 'package:endgame/pages/widgets/web_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:endgame/pages/widgets/confirm_dialog.dart';
 import 'package:endgame/controllers/db_helper.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import 'bottom_selected.dart';
 
 class Settings extends StatefulWidget {

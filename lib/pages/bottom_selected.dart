@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class BottomSelected extends StatefulWidget {
-  BottomSelected({key, this.title = ''}) : super(key: key);
+  const BottomSelected({Key key, this.title = ''}) : super(key: key);
 
   final String title;
 
@@ -72,68 +72,70 @@ class _BottomSelectedState extends State<BottomSelected>
   @override
   Widget build(BuildContext context) {
     return GetBuilder<IndexNavigationBar>(
-      init: IndexNavigationBar(),
-      builder: (controller) {
-        return Scaffold(
-          extendBody: true,
-          body: NavigationScreen(iconList[controller.index],
-              iconListWidget[controller.index]),
-          bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-            itemCount: iconList.length,
-            tabBuilder: (int index, bool isActive) {
-              const color = Colors.white;
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    iconList[index],
-                    size: 24,
-                    color: color,
-                  ),
-                  const SizedBox(height: 4),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: AutoSizeText(
-                      textList[index],
-                      maxLines: 1,
-                      style: TextStyle(color: color,
-                        fontFamily: 'DM_Sans',
-                      ),
-                      group: autoSizeGroup,
+        init: IndexNavigationBar(),
+        builder: (controller) {
+          return Scaffold(
+            extendBody: true,
+            body: NavigationScreen(
+              iconData: iconList[controller.index],
+              iconListWidget: iconListWidget[controller.index],
+            ),
+            bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+              itemCount: iconList.length,
+              tabBuilder: (int index, bool isActive) {
+                const color = Colors.white;
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      iconList[index],
+                      size: 24,
+                      color: color,
                     ),
-                  )
-                ],
-              );
-            },
-            backgroundColor: Color(0xff004eeb),
-            activeIndex: controller.index,
-            splashColor: Colors.red,
-            notchAndCornersAnimation: animation,
-            splashSpeedInMilliseconds: 300,
-            notchSmoothness: NotchSmoothness.defaultEdge,
-            gapLocation: GapLocation.center,
-            // leftCornerRadius: 32,
-            // rightCornerRadius: 32,
-            onTap: (index) => setState(() {
-              IndexNavigationBar indexNavigationBar = Get.put(IndexNavigationBar());
-              indexNavigationBar.updateIndex(index);
-            }),
-            splashRadius: 50.0,
-          ),
-        );
-      }
-    );
+                    const SizedBox(height: 4),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: AutoSizeText(
+                        textList[index],
+                        maxLines: 1,
+                        style: TextStyle(
+                          color: color,
+                          fontFamily: 'DM_Sans',
+                        ),
+                        group: autoSizeGroup,
+                      ),
+                    )
+                  ],
+                );
+              },
+              backgroundColor: Color(0xff004eeb),
+              activeIndex: controller.index,
+              splashColor: Colors.red,
+              notchAndCornersAnimation: animation,
+              splashSpeedInMilliseconds: 300,
+              notchSmoothness: NotchSmoothness.defaultEdge,
+              gapLocation: GapLocation.center,
+              // leftCornerRadius: 32,
+              // rightCornerRadius: 32,
+              onTap: (index) => setState(() {
+                IndexNavigationBar indexNavigationBar =
+                    Get.put(IndexNavigationBar());
+                indexNavigationBar.updateIndex(index);
+              }),
+              splashRadius: 50.0,
+            ),
+          );
+        });
   }
-
-
 }
 
 class NavigationScreen extends StatefulWidget {
   final IconData iconData;
   final Widget iconListWidget;
 
-  const NavigationScreen(this.iconData, this.iconListWidget) : super();
+  const NavigationScreen({Key key, this.iconData, this.iconListWidget})
+      : super(key: key);
 
   @override
   _NavigationScreenState createState() => _NavigationScreenState();

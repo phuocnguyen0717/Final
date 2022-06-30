@@ -5,12 +5,10 @@ import 'dart:math' as math;
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../../controllers/tien_te.dart';
-import '../../custom/chuyen_doi_tien_te.dart';
 
 class ExpansedChart extends StatefulWidget {
   final Map<String, double> data;
@@ -50,7 +48,7 @@ class _ExpansedChartState extends State<ExpansedChart> {
     final chart = PieChart(
       key: ValueKey(key),
       dataMap: widget.data,
-      animationDuration: Duration(seconds: 2),
+      animationDuration: Duration(seconds: 1),
       chartRadius: math.min(MediaQuery.of(context).size.width / 1.2, 300),
       initialAngleInDegree: 0,
       chartType: _chartType,

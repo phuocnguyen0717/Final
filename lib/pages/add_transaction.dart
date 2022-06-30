@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:endgame/static.dart' as Static;
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key key}) : super(key: key);
@@ -75,7 +74,8 @@ class _AddTransactionState extends State<AddTransaction> {
             Text(
               "Thêm Giao Dịch",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 32.0,
+              style: TextStyle(
+                  fontSize: 32.0,
                   fontFamily: 'DM_Sans',
                   fontWeight: FontWeight.w700),
             ),
@@ -120,10 +120,10 @@ class _AddTransactionState extends State<AddTransaction> {
                           textEdit.value = TextEditingValue(
                               text: formatter.format(amount.toString()),
                               selection: TextSelection.collapsed(
-                                  offset: formatter.format(amount.toString()).length));
+                                  offset: formatter
+                                      .format(amount.toString())
+                                      .length));
                         });
-
-
                       } catch (e) {
                         // print(e.toString());
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -188,8 +188,7 @@ class _AddTransactionState extends State<AddTransaction> {
                   value: dropdownValue,
                   elevation: 16,
                   style: const TextStyle(
-                      fontFamily: 'DM_Sans',
-                      color: Color(0xff004eeb)),
+                      fontFamily: 'DM_Sans', color: Color(0xff004eeb)),
                   underline: Container(
                     height: 2,
                     color: Color(0xff004eeb),
@@ -258,8 +257,7 @@ class _AddTransactionState extends State<AddTransaction> {
                     if (val) {
                       setState(() {
                         type = "Thu";
-                        if (dropdownValue.isEmpty ||
-                            dropdownValue == "Chi") {
+                        if (dropdownValue.isEmpty || dropdownValue == "Chi") {
                           dropdownValue = 'Thu';
                         }
                       });
@@ -285,8 +283,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       setState(() {
                         type = "Chi";
 
-                        if (dropdownValue.isEmpty ||
-                            dropdownValue == "Thu") {
+                        if (dropdownValue.isEmpty || dropdownValue == "Thu") {
                           dropdownValue = 'Chi';
                         }
                       });

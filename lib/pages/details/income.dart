@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
 import 'package:pie_chart/pie_chart.dart';
 

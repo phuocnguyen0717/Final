@@ -1,6 +1,5 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:endgame/controllers/tien_te.dart';
-import 'package:endgame/custom/chuyen_doi_tien_te.dart';
 import 'package:endgame/modals/transaction_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -10,6 +9,8 @@ import 'package:hive/hive.dart';
 import '../modals/report_model.dart';
 
 class ReportScreen extends StatefulWidget {
+  const ReportScreen({Key key}) : super(key: key);
+
   @override
   State<ReportScreen> createState() => _ReportScreenState();
 }
@@ -29,6 +30,7 @@ class _ReportScreenState extends State<ReportScreen> {
     decimalDigits: 0,
     symbol: '',
   );
+
   Future<List<TransactionModel>> fetch() async {
     if (box.values.isEmpty) {
       return Future.value([]);
@@ -136,7 +138,8 @@ class _ReportScreenState extends State<ReportScreen> {
                         colorFn: (ReportModel series, _) => series.barColor,
                         data: data,
                         labelAccessorFn: (ReportModel subscribers, _) =>
-                            formatter.format(subscribers.subscribers.toString())),
+                            formatter
+                                .format(subscribers.subscribers.toString())),
                     charts.Series(
                         id: "Subscribers",
                         domainFn: (ReportModel series2, _) => series2.month,
@@ -145,7 +148,8 @@ class _ReportScreenState extends State<ReportScreen> {
                         colorFn: (ReportModel series2, _) => series2.barColor,
                         data: data2,
                         labelAccessorFn: (ReportModel subscribers, _) =>
-                            formatter.format(subscribers.subscribers.toString()))
+                            formatter
+                                .format(subscribers.subscribers.toString()))
                   ];
                   return Container(
                     height: 400,
@@ -160,14 +164,12 @@ class _ReportScreenState extends State<ReportScreen> {
                             ),
                             Expanded(
                               child: charts.BarChart(
-
                                 series,
                                 animate: true,
-                                animationDuration: Duration(seconds: 2),
+                                animationDuration: Duration(seconds: 1),
                                 barRendererDecorator:
                                     charts.BarLabelDecorator<String>(),
                                 domainAxis: charts.OrdinalAxisSpec(),
-                                
                               ),
                             )
                           ],

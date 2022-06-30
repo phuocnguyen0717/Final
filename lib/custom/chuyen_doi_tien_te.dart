@@ -17,7 +17,7 @@ class CustomText {
         init: TienTe(),
         builder: (controller) {
           return Text(
-            '${operator ?? ''}${formatter.format((int.parse(text) * controller.tyGia).toString())}',
+            '${operator ?? ''}${formatter.format((int.parse(text) * controller.tyGia /10).toString())}',
             style: TextStyle(
               fontSize: fontSize ?? 20.0,
               fontWeight: fontWeight ?? FontWeight.bold,
